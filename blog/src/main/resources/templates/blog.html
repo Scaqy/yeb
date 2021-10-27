@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title th:text="${blog.title}"></title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+		<link rel="stylesheet" th:href="@{/css/me.css}" /></link>
+		<link rel="shortcut icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+	</head>
+	<body>
+		<!--导航-->
+		<div th:replace="~{common/commons::topbar}"></div>
+
+		<!--		标题头部-->
+		<div  style="width: 100%;height:669px;overflow: hidden" >
+			<div class="ui active dimmer" style="height: 669px;background: rgba(0,0,0,0.5)">
+				<div class="ui container" align="center">
+					<a href="#" class="m-bg-color-Transparent"  onclick="window.history.go(-1);"  style="font-family: 胡晓波真帅体;font-size: 20px;color: white;letter-spacing: 5px;position: absolute;top: 100px;left: 3%" align="left">
+						<i class="reply icon"></i>返回上一页
+					</a>
+					<img src="" th:src="${blog.image}" alt="" class="ui circular image" style="width: 150px;height: 150px">
+					<br><br>
+					<span style="color: white;font-size: 3em;font-weight: bold;font-family: 胡晓波真帅体;letter-spacing: 6px"  th:text="${blog.title}"></span>
+					<hr style="color: white;width: 500px;border: 5px solid white;">
+					<span style="color: white;font-size: 15px;font-family: 胡晓波真帅体;letter-spacing: 6px">
+						<span   th:text="${blog.username}"></span>
+						&nbsp;
+						<i class="calendar icon"></i><span th:text="${#dates.format(blog.getTime(),'yyyy-MM-dd')}"></span>
+					</span>
+					<div style="font-family: 胡晓波真帅体;font-size: 20px;color: white;letter-spacing: 5px;position: absolute;bottom: 120px;right: 20%" align="right">
+						分类:<span th:text="${blog.typeName}"></span>
+						<hr align="right" style="width: 300px">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--中间内容-->
+		<div class=" " id="waypoint" style="position:relative;padding-bottom: 4em !important;top:-100px !important;z-index: 1234 !important;">
+			<div class="ui container m-container-lr-big">
+				<div class="ui attached segment ">
+					<!--文章内容-->
+					<div class="ui basic segment m-padded-lr" id="article" >
+						<div class="ui basic segment article-entry" th:utext="${blog.content}">
+						</div>
+					</div>
+				</div>
+				<img th:src="${blog.image}" class="ui fluid image"/>
+			</div>
+
+		</div>
+
+<!--		右下角按钮-->
+		<div class="m-padded m-fixed m-right-bottom" id="toolbar" style="display: none">
+			<div class="ui vertical icon buttons">
+				<button id="top-button" class="ui icon button" ><i class="chevron up icon"></i></button>
+			</div>
+		</div>
+
+
+
+		<!--底部-->
+		<div th:replace="~{common/commons::bottombar}"></div>
+		
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+		<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+		<script src="./js/jquery.waypoints.min.js" th:src="@{/js/jquery.waypoints.min.js}"></script>
+
+		<script type="text/javascript">
+				$("#top-button").click(function () {
+					$(window).scrollTo(0,500);
+				});
+
+				var waypoint = new Waypoint({
+					element: document.getElementById('waypoint'),
+					handler: function(direction) {
+						if (direction == 'down') {
+							$('#toolbar').show(200);
+						} else {
+							$('#toolbar').hide(500);
+						}
+
+						console.log('Scrolled to waypoint!  ' + direction);
+					}
+				})
+		</script>
+
+	</body>
+</html>

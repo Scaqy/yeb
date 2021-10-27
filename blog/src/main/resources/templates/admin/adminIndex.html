@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>后台登陆</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <link rel="stylesheet" th:href="@{/css/me.css}" /></link>
+        <link rel="shortcut icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+	</head>
+<body>
+<a href="" th:href="@{/login}">
+  <div class="ui black animated button"  tabindex="0" style="top: 20px;left: -2px">
+    <div class="visible content">
+      <i class="user icon"></i>用户登陆
+    </div>
+    <div class="hidden content">
+      <i class="left arrow icon"></i>
+    </div>
+  </div>
+</a>
+<div class="ui middle aligned center aligned grid m-container-lr-mini m-padded-top">
+  <div class="column">
+    <div class="ui attached segment">
+      <h2 class="ui header" style="font-family: 胡晓波真帅体;letter-spacing: 4px;font-size: 30px">
+        <div class="content">
+          后台登陆
+        </div>
+      </h2>
+    </div>
+    <form class="ui large form" th:action="@{/admin/login}" method="post">
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="adminName" placeholder="管理员账号">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="passWord" placeholder="管理员密码">
+          </div>
+        </div>
+        <button type="submit" class="ui fluid large black submit button">登陆</button>
+      </div>
+      <div class="ui error message" ></div>
+    </form>
+      <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+<!--      <p  th:text="${msg}" th:if="${not #strings.isEmpty(msg)}" style="color: red;font-size: large "></p>-->
+  </div>
+</div>
+
+        <!--script-->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+</body>
+
+</html>

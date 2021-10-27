@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>登陆</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <link rel="stylesheet" th:href="@{/css/me.css}" /></link>
+        <link rel="shortcut icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+	</head>
+<body>
+<!--<a class="ui big teal right ribbon label" style="top: 20px;"><i class="hotel icon"></i> Hotel </a>-->
+<a href="" th:href="@{/admin}">
+    <div class="ui black animated button"  tabindex="0" style="top: 20px;left: -2px">
+        <div class="visible content">
+            <i class="user icon"></i>后台登陆
+        </div>
+        <div class="hidden content">
+            <i class="right arrow icon"></i>
+        </div>
+    </div>
+</a>
+
+<div class="ui middle aligned center aligned grid m-container-lr-mini m-padded-top">
+  <div class="column">
+      <div class="ui attached segment">
+          <h1 class="ui header" style="font-family: 胡晓波真帅体;letter-spacing: 4px;font-size: 30px">
+              <div class="content">
+                  用户登录
+              </div>
+          </h1>
+      </div>
+
+    <form class="ui large form" th:action="@{/user/login}" method="post">
+      <div class="ui black attached stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="username" placeholder="用户名">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" placeholder="密码">
+          </div>
+        </div>
+<!--        <div class="field">-->
+<!--        	<div class="ui grid">-->
+<!--        		<div class="ten wide column">-->
+<!--        			<input type="text" name="canvas" placeholder="验证码">-->
+<!--        		</div>-->
+<!--        		<div class="six wide column">-->
+<!--        			<canvas id="canvas"  width="100px" height="37px"></canvas>-->
+<!--        		</div>-->
+<!--        	</div>-->
+<!--        </div>-->
+        <button type="submit" class="ui fluid large black submit button">登陆</button>
+          <hr>
+          <a th:href="@{/main}">游客登陆>></a>
+      </div>
+      <div class="ui error message" ></div>
+    </form>
+
+    <div class="ui message">
+      没有注册? <a th:href="@{/register}">点击注册</a>
+    </div>
+      <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+<!--      <p  th:text="${msg}" th:if="${not #strings.isEmpty(msg)}" style="color: red;font-size: large "></p>-->
+  </div>
+</div>
+
+        <!--script-->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/canvas.js}" ></script>
+
+</body>
+
+</html>

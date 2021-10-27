@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--导航1-->
+<nav class="grid-header " th:fragment="topbar" >
+    <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+<!--                <h2 class="ui teal header item"><img src="img/logo.png" alt="" class="ui image" style="width: 1.3em;" /> Scaqy</h2>-->
+                <a href="#" th:href="@{/main}" class="item"><i class="home icon"></i>首页</a>
+                <a href="#" th:href="@{/type}" class="item"><i class="idea icon"></i>分类</a>
+                <a href="#" th:href="@{/file}" class="item"><i class="file icon"></i>归档</a>
+                <a href="" th:href="@{/aboutMe}" class="item"><i class="info icon"></i>关于我</a>
+                <div class="right item">
+                    <form action="" name="search" th:action="@{/blog/Search}" method="post">
+                        <div class="ui fluid search">
+                            <div class="ui icon input">
+                                <input class="prompt" name="title" placeholder="搜索..." type="text">
+<!--                                <a href="" type="submit" style="color:gray;">-->
+                                    <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+<!--                                </a>-->
+                            </div>
+                        </div>
+                    </form>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="" class="item" th:if="${not #strings.isEmpty(session.username)}" th:href="@{/user/loginOut}">
+                        <i class="sign out alternate link icon" ></i>
+                    </a>
+                    <a href="" th:href="@{/login}" th:if="${#strings.isEmpty(session.username)}" class="item"><i class="user icon"></i>登陆/注册</a>
+                   
+                </div>
+            </div>
+    </div>
+</nav>
+
+<!--导航2-->
+<nav class="grid-header " id="nav" th:fragment="topbartwo" style="display: none">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <a href="#" th:href="@{/main}" class="item"><i class="home icon"></i>首页</a>
+            <a href="#" th:href="@{/type}" class="item"><i class="idea icon"></i>分类</a>
+            <a href="#" th:href="@{/file}" class="item"><i class="file icon"></i>归档</a>
+            <a href="" th:href="@{/aboutMe}" class="item"><i class="info icon"></i>关于我</a>
+            <div class="right item">
+                <form action="" name="search" th:action="@{/blog/Search}" method="post">
+                    <div class="ui fluid search">
+                        <div class="ui icon input">
+                            <input class="prompt" name="title" placeholder="搜索..." type="text">
+                            <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                        </div>
+                    </div>
+                </form>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="" class="item" th:if="${not #strings.isEmpty(session.username)}" th:href="@{/user/loginOut}">
+                    <i class="sign out alternate link icon" ></i>
+                </a>
+                <a href="" th:href="@{/login}" th:if="${#strings.isEmpty(session.username)}" class="item"><i class="user icon"></i>登陆/注册</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!--底部-->
+<footer class="ui inverted vertical segment m-padded-tb" th:fragment="bottombar" >
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="four wide column">
+                <h4 class="ui inverted header">实用网站</h4>
+                <div class="ui inverted link list">
+                    <a href="https://picsum.photos/images" class="item">在线图片网站</a>
+                    <a href="https://semantic-ui.com/elements" class="item">semantic文档</a>
+                </div>
+            </div>
+            <div class="four wide column">
+                <h4 class="ui inverted header">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="" class="item">Email:1958253402@qq.com</a>
+                    <a href="" class="item">QQ:1958253402</a>
+                </div>
+            </div>
+            <div class="eight wide column">
+                <h4 class="ui inverted teal header">Scaqy</h4>
+                <p>私人的记录网站，记录我的美好生活！</p>
+            </div>
+        </div>
+        <div class="ui section divider"></div>
+<!--        <img th:src="@{/img/logo.png}" class="ui centered mini image" />-->
+        <div class="ui inverted horizontal small divided link list">
+            <a class="item" href="#" target="_blank">Personal notes by Scaqy</a>
+        </div>
+    </div>
+</footer>
+</html>

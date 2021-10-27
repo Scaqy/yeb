@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>分类</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+		<link rel="stylesheet" th:href="@{/css/me.css}" /></link>
+		<link rel="shortcut icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+		<style>
+			#button{
+				font-family: 胡晓波真帅体;
+				font-size: 20px !important;
+				font-weight: bolder;
+				letter-spacing: 4px;
+
+			}
+
+			#table li{
+				list-style: none;
+				line-height: 2 !important;
+			}
+			#table{
+				font-family: 胡晓波真帅体;
+				font-size: 20px;
+				font-weight: bolder;
+				color: black;
+				letter-spacing: 3px;
+				height: 362px !important;
+				overflow: auto;
+			}
+			#table li a{
+				color: black !important;
+			}
+
+			#table li  a:hover{
+				color: #00c4ff !important;
+			}
+		</style>
+	</head>
+	<body>
+		<!--导航-->
+		<div th:replace="~{common/commons::topbartwo}"></div>
+
+		<!--头部页面-->
+		<div  style="width: 100%;overflow: hidden" >
+			<div class="ui active dimmer" style="height: 669px;background: rgba(0,0,0,0.5)">
+				<div class="ui container" align="center">
+					<div id="waypoint"></div>
+					<span style="color: white;font-size: 50px;font-weight: bold;font-family: 胡晓波真帅体;letter-spacing: 10px">整理使我更有序</span>
+					<hr style="color: white;width: 500px;border: 5px solid white;">
+					<span style="color: white;font-size: 15px;font-family: 胡晓波真帅体;letter-spacing: 6px">Organizing Makes me Organized</span>
+				</div>
+				<div style="position: absolute;bottom: 20px !important;">
+					<form action="" name="search2" th:action="@{/blog/Search}" method="post">
+						<div class="ui fluid search">
+							<div class="ui icon input">
+								<input class="prompt" name="title" placeholder="搜索..." type="text">
+								<i onclick="document.forms['search2'].submit()" class="search link icon"></i>
+							</div>
+						</div>
+					</form>
+					<div class="ui inverted secondary menu" >
+						<a href="#" th:href="@{/main}" class="item"><i class="home icon"></i>首页</a>
+						<a href="#" th:href="@{/type}" class="item"><i class="idea icon"></i>分类</a>
+						<a href="#" th:href="@{/file}" class="item"><i class="file icon"></i>归档</a>
+						<a href="" th:href="@{/aboutMe}" class="item"><i class="info icon"></i>关于我</a>
+						<a href="" class="item" th:if="${not #strings.isEmpty(session.username)}" th:href="@{/user/loginOut}">
+							<i class="sign out alternate link icon" ></i>
+						</a>
+						<a href="" th:href="@{/login}" th:if="${#strings.isEmpty(session.username)}" class="item"><i class="user icon"></i>登陆/注册</a>
+					</div>
+				</div>
+			</div>
+			<img id="img" src="https://i.picsum.photos/id/1079/4496/3000.jpg?hmac=G-dJcpU08vEMqjUz2rb3IxjOG99rcePqW9BF1IsPLf0"  th:src="@{/img/bg/bgFile.png}"   alt="" class="ui fluid image" style="position:relative;width: 100%;height: 100%;">
+		</div>
+
+
+		<!--中间内容-->
+		<div class="ui basic segment m-padded-tb-lager" >
+			<!--分类-->
+			<div id="type" style="float: left;width: 300px;position: fixed;top:80px;left: 60px;z-index: 12333 !important;display: none" align="center">
+				<div class="ui attached segment m-bg-color-white" id="table" >
+					<li  class="item"  ><a href="" th:href="@{/type}">全部</a></li>
+					<li th:each="type :${types}" >
+						<a href="" th:href="@{/blogBytypeName/}+${type.typeName}" class="item" th:value="${type.typeId}" th:text="${type.typeName}"></a>
+					</li>
+				</div>
+			</div>
+
+			<div class="">
+					<!--全部文章-->
+					<div class="ui container" >
+						<!--header-->
+						<div class="ui attached segment m-container-lr m-padded-tb-tiny">
+							<div class="ui middle aligned two column grid">
+								<div class="column">
+									<span><i class="lager teal bookmark icon"></i><span style="font-size: 15px;font-family: 胡晓波真帅体;letter-spacing: 5px;font-weight: bolder"   th:text="${typeName}" ></span></span>
+								</div>
+								<div class="right aligned column">
+									<span style="font-family: 胡晓波真帅体;font-weight:900;">共 <h2 class="ui orange header m-inline-block" th:text="${blogCount}">5</h2> 篇</span>
+								</div>
+							</div>
+						</div>
+
+						<!--content-->
+						<div class="ui orange basic segment m-padded-tb">
+							<div class="ui segment m-height-big m-bg-color-white m-Right_angle" th:each="blog :${blogs}" >
+								<div class="ui mobile reversed stackable grid">
+									<div class="eleven wide column">
+										<div align="center" >
+											<a href="" th:href="@{/blogById/}+${blog.id}"  ><h2 style="color: black;font-family: 胡晓波真帅体 !important;font-size: 25px !important;font-weight: bolder !important;letter-spacing: 4px !important;" th:text="${blog.title}"></h2></a>
+										</div>
+										<hr style="color: black;border: 2px solid black">
+										<div align="center" >
+											<div class="ui horizontal link list" style="font-family: 胡晓波真帅体;font-size: 10px;font-weight: bolder;letter-spacing: 4px">
+												<div class="item">
+													<div class="content" style="color: #00c4ff">[[${blog.username}]]</div>
+												</div>
+												<div class="item" >
+													<i class="calendar icon"></i> [[${#dates.format(blog.getTime(),'yyyy-MM-dd')}]]
+												</div>
+											</div>
+										</div>
+										<div style="width: 100%;height: 100px;overflow: hidden;text-overflow: ellipsis">
+											<p style="font-family: 手书体;font-weight: bolder;font-size: 15px" th:text="${blog.conIntroduction}"></p>
+										</div>
+
+										<div class="ui grid" style="position:absolute;bottom: 15px;width: 100%">
+											<div class="eleven wide column">
+
+											</div>
+											<div class="right aligned five wide column" >
+												<a href="#" th:href="@{/blogBytypeName/}+${blog.typeName}" class="ui tiny basic button" id="button"  th:text="${blog.typeName}" ></a>
+											</div>
+										</div>
+									</div>
+									<div class="five wide column">
+										<a href="#" th:href="@{/blogById/}+${blog.id}" >
+											<img th:src="${blog.image}"  style="width:320px;height: 220px;" class="ui rounded fluid image m-padded-tb-mini"/>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="ui attached segment m-bg-color-white" align="middle" style="height: 500px;" th:if="${blogCount} == 0">
+								<span style="font-family: 胡晓波真帅体;font-size: 100px;font-weight: bolder;color: red;position: relative;top: 150px">查询结果不存在，请添加文章！！！</span>
+							</div>
+						</div>
+<!--						&lt;!&ndash;footer&ndash;&gt;-->
+<!--						<div class="ui attached segment m-container-lr m-bg-color-white">-->
+<!--							<div class="ui two column grid">-->
+<!--								<div class="left align column">-->
+<!--									<a  class="ui mini teal basic icon button prev" ><i class="caret left icon"></i>上一页</a>-->
+<!--								</div>-->
+<!--								<div class="right aligned column">-->
+<!--									<a  class="ui mini teal basic icon button next">下一页<i class="caret right icon"></i></a>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+					</div>
+			</div>
+		</div>
+
+
+		<!--		右下角按钮-->
+		<div class="m-padded m-fixed m-right-bottom" id="toolbar" style="display: none">
+			<div class="ui vertical icon buttons">
+				<button id="top-button" class="ui icon button" ><i class="chevron up icon"></i></button>
+			</div>
+		</div>
+		
+		<!--底部-->
+		<div id="footer" th:replace="~{common/commons::bottombar}"></div>
+
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+		<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+		<script src="./js/jquery.waypoints.min.js" th:src="@{/js/jquery.waypoints.min.js}"></script>
+<!--		<script th:src="@{/js/page.js}"></script>-->
+		<script type="text/javascript">
+			$("#top-button").click(function () {
+				$(window).scrollTo(0,500);
+			});
+
+			var waypoint = new Waypoint({
+				element: document.getElementById('waypoint'),
+				handler: function(direction) {
+					if (direction == 'down') {
+						$('#toolbar').show(200);
+					} else {
+						$('#toolbar').hide(500);
+					}
+
+					console.log('Scrolled to waypoint!  ' + direction);
+				}
+			})
+
+			var waypoint = new Waypoint({
+				element: document.getElementById('waypoint'),
+				handler: function(direction) {
+					if (direction == 'down') {
+						$('#type').show(500);
+					} else {
+						$('#type').hide(500);
+					}
+
+					console.log('Scrolled to waypoint!  ' + direction);
+				}
+			})
+
+			var waypoint = new Waypoint({
+				element: document.getElementById('waypoint'),
+				handler: function(direction) {
+					if (direction == 'down') {
+						$('#nav').show(500);
+					} else {
+						$('#nav').hide(500);
+					}
+
+					console.log('Scrolled to waypoint!  ' + direction);
+				}
+			})
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>用户管理</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"/>
+		<link rel="stylesheet" th:href="@{/css/me.css}" />
+		<link rel="shortcut icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+	</head>
+	<body>
+	<!--导航-->
+		<nav class="ui inverted attached segment m-padded-tb-th-mini">
+			<div class="ui container">
+				<div class="ui inverted secondary stackable menu">
+					<h2 class="ui teal header item"><img src="img/logo.png" alt="" class="ui image" style="width: 1.3em;" /></h2>
+					<a href="#" th:href="@{/userManagement}" class="item"><i class="home icon"></i>用户管理</a>
+					<a href="#" th:href="@{/typeManagement}" class="item"><i class="idea icon"></i>分类管理</a>
+					<a href="#" th:href="@{/blogManagement}" class="item"><i class="file icon"></i>文章管理</a>
+					<div class="right item">
+						<a href="" th:href="@{/loginOut}"><i class="sign out alternate link icon" ></i></a>
+					</div>
+				</div>
+			</div>
+		</nav>
+		
+		<!--中间内容-->
+		<div class="m-padded-top-lager m-container-lr">
+			<div class="ui container">
+				<div class="ui top attached segment ">
+					<div class="ui middle aligned two column grid">
+						<div class="column">
+							<h3 class="ui teal header">用户管理</h3>
+						</div>
+						<div class="right aligned column">
+							<a href="" th:href="@{/addUser}"><div class="ui blue button">添加</div></a>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui teal top attached segment">
+					<table class="ui striped compact table">
+						<thead>
+							<tr>
+								<th class="two wide">注册时间</th>
+								<th class="five wide">用户名</th>
+								<th class="five wide">密码</th>
+								<th class="two wide">数据操作</th>
+							</tr>
+						</thead>
+						<tbody id="demo">
+							<tr th:each="user:${users}">
+								<td th:text="${#dates.format(user.getTime(),'yyyy-MM-dd')}"></td>
+								<td th:text="${user.username}"></td>
+								<td th:text="${user.password}"></td>
+								<td >
+									<a class="ui mini red button" th:href="@{/deleteUser/}+${user.id}">删除</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="ui attached segment">
+					<div class="ui two column grid">
+						<div class="left align column">
+							<span class="ui mini teal button prev" >上一页</span>
+						</div>
+						<div class="right aligned column">
+							<span class="ui mini teal button next">下一页</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+		<script th:src="@{/js/page.js}"></script>
+		<script type="text/javascript">
+
+			var pageParam = {
+				next: '.next',//下一页按钮jq选择器
+				prev: '.prev',//上一页按钮jq选择器
+				perPageCount: 6,//每页显示数量
+			}
+			//demo为包裹列表的容器
+			$("#demo").page(pageParam);
+
+			<!--初始化dropdown-->
+			$(".ui.dropdown").dropdown();
+		</script>
+	</body>
+</html>
